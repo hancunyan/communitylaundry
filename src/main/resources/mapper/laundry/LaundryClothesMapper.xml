@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.laundry.LaundryClothesMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.laundry.LaundryClothes" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="clname" property="clname" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="clothescount" property="clothescount" jdbcType="VARCHAR" />
+    <result column="equipmentid" property="equipmentid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="ordernum" property="ordernum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, clname, brand, color, price, clothescount, equipmentid, createtime, updatetime, 
+    ordernum
+  </sql>
+  <select id="queryColthesList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from laundry_clothes where equipmentid != null
+  </select>
+
+  <select id="queryColthesByNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from laundry_clothes
+    where ordernum = #{ordernum,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryColthesDeviceByNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    cl.id as id, cl.clname as clname, cl.brand as brand, cl.color as color,
+    cl.price as price, cl.clothescount as clothescount, cl.equipmentid as equipmentid,
+    cl.createtime as createtime,cl.ordernum as ordernum,e.equipmentname as equipmentname
+    from laundry_clothes cl left join laundry_equipment e on cl.equipmentid = e.id
+    where ordernum = #{ordernum,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryCapacity" resultType="java.util.Map" parameterType="java.lang.Integer" >
+    select e.capacity as capacity,count(c.id) as clocount from laundry_clothes c
+    left join laundry_equipment e on c.equipmentid = e.id where c.equipmentid = #{eid}
+  </select>
+
+  <select id="queryColthesByTechnological" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    cl.id, cl.clname, cl.brand, cl.color, cl.price, cl.clothescount, cl.equipmentid, cl.createtime,
+    cl.ordernum
+    from laundry_clothes cl left join laundry_order o on cl.ordernum = o.ordernum
+    where o.technologicalprocess = #{technological} and o.ordernum != #{ordernum}
+  </select>
+
+  <select id="queryColthesByWorking" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    cl.id, cl.clname, cl.brand, cl.color, cl.price, cl.clothescount, cl.equipmentid, cl.createtime,
+    cl.ordernum
+    from laundry_clothes cl left join laundry_order o on cl.ordernum = o.ordernum
+    where o.workingprocedure = #{working} and o.ordernum != #{ordernum}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from laundry_clothes
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from laundry_clothes
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryClothes" >
+    insert into laundry_clothes (id, clname, brand, 
+      color, price, clothescount, 
+      equipmentid, createtime, updatetime, 
+      ordernum)
+    values (#{id,jdbcType=INTEGER}, #{clname,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{color,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{clothescount,jdbcType=VARCHAR}, 
+      #{equipmentid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{ordernum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryClothes" >
+    insert into laundry_clothes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="clname != null" >
+        clname,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="clothescount != null" >
+        clothescount,
+      </if>
+      <if test="equipmentid != null" >
+        equipmentid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="ordernum != null" >
+        ordernum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clname != null" >
+        #{clname,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="clothescount != null" >
+        #{clothescount,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryClothes" >
+    update laundry_clothes
+    <set >
+      <if test="clname != null" >
+        clname = #{clname,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="clothescount != null" >
+        clothescount = #{clothescount,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        equipmentid = #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordernum != null" >
+        ordernum = #{ordernum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryClothes" >
+    update laundry_clothes
+    set clname = #{clname,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      clothescount = #{clothescount,jdbcType=VARCHAR},
+      equipmentid = #{equipmentid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      ordernum = #{ordernum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

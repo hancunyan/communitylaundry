@@ -1,0 +1,205 @@
+/*包含树的页面拷贝这个作为基础样式*/
+/*others*/
+.treeContainer {
+	position: absolute;
+	top: 24px;
+	left: 6px;
+    bottom: 12px;
+	width: 300px;
+	overflow: auto;
+    border-radius: 4px;
+	background: #fff;
+	box-shadow: 0 0 10px 0 rgba(31, 132, 118, 0.20);
+}
+
+.tableContainer {
+	position: absolute;
+	top: 24px;
+	left: 318px;
+	right: 6px;
+	bottom: 0;
+}
+/*包含树的页面基本样式*/
+.ztree li a.curSelectedNode {
+    background-color: #fff;
+    border: 0px;
+    padding-top: 1px;
+    color: #009688 !important;
+    opacity: 1 !important;
+}
+.ztree .treeTool{
+    color: #009688;
+    margin-left: 6px;
+    font-size: 16px;
+}
+.user_icon_ico_open {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.ztree li span.button.user_icon_ico_docu {
+	font-family: "iconfont" !important;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.ztree li span.button.user_icon_ico_docu:before {
+	content: "\e608";
+}
+
+.user_icon_ico_open {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.user_icon_ico_open:before {
+	content: "\e608";
+}
+
+.user_icon_ico_close {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.user_icon_ico_close:before {
+	content: "\e608";
+}
+
+.noline_open {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.noline_open:before {
+	content: "\e628";
+}
+
+.noline_close {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.noline_close:before {
+	content: "\e627";
+}
+
+.ztree li span.button {
+	margin: 0;
+	display: inline;
+	background-image: none;
+}
+
+.ztree span {
+	font-size: 12px;
+}
+
+.ztree li {
+	line-height: 26px;
+}
+
+.ztree li ul {
+	margin: 0;
+	padding: 0 0 0 12px;
+}
+.ztree li span.button.switch {
+    margin-right: 2px;
+}
+.ztree li span.button {
+	margin-right: 4px;
+}
+.treeTool{
+	margin-left: 3px;
+	margin-top: 4px;
+}
+.noline_docu {
+	width: 16px;
+	height: 16px;
+}
+
+.noline_docu:before {
+	content: "";
+}
+.ztree li a.curSelectedNode {
+    background-color: #d6d6d6;
+    height: 24px;
+    border: 1px #737373 solid;
+}
+.ztree li {
+    min-width: 216px;
+}
+.ztree {
+    /*overflow: auto;*/
+    /*height: 100%;*/
+    padding-left: 20px;
+}
+.ztree li span.button.noline_open {
+    color: #909399;
+}
+.node_name .iconfont{
+	margin-right: 10px;
+}
+.treeSearch{
+    width: 270px;
+    height: 30px;
+    border: 1px solid #e6e6e6;
+    margin-left: 14px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.treeSearch:hover{
+	border: 1px solid #009688;
+}
+.treeSearch input{
+    display: block;
+    float: left;
+    outline: none;
+    border: 1px solid #fff;
+    height: 30px;
+    width: 232px;
+    padding-left: 12px;
+    font-size: 12px;
+}
+.treeSearch .searchMark{
+	float: left;
+	cursor: pointer;
+}
+.treeSearch .searchMark:hover .iconfont{
+	color:#009688;
+}
+.treeSearch .searchMark .iconfont{
+	line-height: 32px;
+    color: #c5c5c5;
+    font-size: 21px;    
+}
+.ztree li a:hover {text-decoration:none}
+.ztree li span.button.noline_close {
+    color: #909399;
+}

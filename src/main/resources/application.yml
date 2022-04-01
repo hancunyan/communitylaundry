@@ -1,0 +1,22 @@
+server:
+  port: 8083
+  tomcat:
+    max-http-form-post-size: -1
+  servlet:
+    session:
+      timeout: 36000
+spring:
+  main:
+    allow-circular-references: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 20MB
+  datasource:
+    default:
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/communitylaundry?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: PassWord
+      driver-class-name: com.mysql.jdbc.Driver
+      type: com.zaxxer.hikari.HikariDataSource

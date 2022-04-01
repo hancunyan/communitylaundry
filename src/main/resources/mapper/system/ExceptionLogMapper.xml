@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.system.ExceptionLogMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.system.ExceptionLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="exc_name" property="excName" jdbcType="VARCHAR" />
+    <result column="oper_user_id" property="operUserId" jdbcType="INTEGER" />
+    <result column="oper_user_name" property="operUserName" jdbcType="VARCHAR" />
+    <result column="oper_method" property="operMethod" jdbcType="VARCHAR" />
+    <result column="oper_url" property="operUrl" jdbcType="VARCHAR" />
+    <result column="oper_ip" property="operIp" jdbcType="VARCHAR" />
+    <result column="oper_create_time" property="operCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.computer.community_laundry.support.entity.system.ExceptionLogWithBLOBs" extends="BaseResultMap" >
+    <result column="exc_requ_param" property="excRequParam" jdbcType="LONGVARCHAR" />
+    <result column="exe_message" property="exeMessage" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, exc_name, oper_user_id, oper_user_name, oper_method, oper_url, oper_ip, oper_create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    exc_requ_param, exe_message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from exceptionlog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!--条件查询异常日志信息-->
+  <select id="queryExceLogPaging" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from exceptionlog
+    <where>
+      1=1
+      <if test="username != null and username != ''">
+        and oper_user_name like concat('%',#{username,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="startTime!=null and startTime!=''">
+        and date_format(oper_create_time, '%Y-%m-%d %H:%i:%s') &gt;= date_format(#{startTime}, '%Y-%m-%d %H:%i:%s')
+      </if>
+      <if test="endTime!=null and endTime!=''">
+        and date_format(oper_create_time, '%Y-%m-%d %H:%i:%s') &lt;= date_format(#{endTime}, '%Y-%m-%d %H:%i:%s')
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exceptionlog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <!--异常日志添加-->
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.system.ExceptionLogWithBLOBs" >
+    insert into exceptionlog (id, exc_name, oper_user_id, 
+      oper_user_name, oper_method, oper_url, 
+      oper_ip, exc_requ_param,
+      exe_message)
+    values (#{id,jdbcType=INTEGER}, #{excName,jdbcType=VARCHAR}, #{operUserId,jdbcType=INTEGER}, 
+      #{operUserName,jdbcType=VARCHAR}, #{operMethod,jdbcType=VARCHAR}, #{operUrl,jdbcType=VARCHAR}, 
+      #{operIp,jdbcType=VARCHAR}, #{excRequParam,jdbcType=LONGVARCHAR},
+      #{exeMessage,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.computer.community_laundry.support.entity.system.ExceptionLogWithBLOBs" >
+    update exceptionlog
+    set exc_name = #{excName,jdbcType=VARCHAR},
+      oper_user_id = #{operUserId,jdbcType=INTEGER},
+      oper_user_name = #{operUserName,jdbcType=VARCHAR},
+      oper_method = #{operMethod,jdbcType=VARCHAR},
+      oper_url = #{operUrl,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP},
+      exc_requ_param = #{excRequParam,jdbcType=LONGVARCHAR},
+      exe_message = #{exeMessage,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.system.ExceptionLog" >
+    update exceptionlog
+    set exc_name = #{excName,jdbcType=VARCHAR},
+      oper_user_id = #{operUserId,jdbcType=INTEGER},
+      oper_user_name = #{operUserName,jdbcType=VARCHAR},
+      oper_method = #{operMethod,jdbcType=VARCHAR},
+      oper_url = #{operUrl,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

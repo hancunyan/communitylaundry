@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.laundry.MembershipLevelMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.laundry.MembershipLevel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gradename" property="gradename" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="integral" property="integral" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gradename, introduce, integral, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from laundry_membership_level
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryMembershipLevelPaging" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from laundry_membership_level
+    <where>
+      <if test="gradename != null and gradename != ''">
+        and gradename = #{gradename}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from laundry_membership_level
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.laundry.MembershipLevel" >
+    insert into laundry_membership_level (id, gradename, introduce, 
+      integral, createtime, updatetime
+      )
+    values (#{id,jdbcType=INTEGER}, #{gradename,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, 
+      #{integral,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.computer.community_laundry.support.entity.laundry.MembershipLevel" >
+    insert into laundry_membership_level
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gradename != null" >
+        gradename,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gradename != null" >
+        #{gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computer.community_laundry.support.entity.laundry.MembershipLevel" >
+    update laundry_membership_level
+    <set >
+      <if test="gradename != null" >
+        gradename = #{gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.laundry.MembershipLevel" >
+    update laundry_membership_level
+    set gradename = #{gradename,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      integral = #{integral,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,213 @@
+/*包含所有layui的样式覆盖*/
+/*输入框*/
+.layui-input:hover,
+.layui-textarea:hover {
+	border-color: #45bcbb!important
+}
+/*表格*/
+.layui-table{
+	color: #303133!important;
+}
+.layui-table-page{
+	text-align: center;
+}
+.userManage .layui-table th {
+    font-weight: 300;
+}
+.layui-table-header .layui-table {
+    width: 100%;
+}
+.layui-table-view .layui-table {
+    width: 100%;
+}
+.layui-table thead{
+	color: #909399!important;
+}
+.layui-table tr{
+	border-bottom:1px solid #ebeef5;
+    display: block;
+}
+.layui-table-hover{
+	border-bottom:0;
+	background: #fff!important;
+	margin-top: -1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	box-shadow:0 0 10px 0 rgba(31, 132, 118, 0.20);
+}
+.layui-table td, .layui-table th{
+	font-size: 12px;
+	border-width: 0px;
+	border-style: solid;
+	border-color: #e6e6e6;	
+}
+.layui-fluid {
+	padding: 0px;
+	position: relative;
+}
+    /*表格复选框*/
+.layui-table-view .layui-form-checkbox[lay-skin=primary] i {
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    font-size: 8px;
+}
+.layui-form-checkbox[lay-skin=primary] i {
+    border: 1px solid #ebeef5;
+}
+/*有图片的表格*/
+.table_width_img thead tr .layui-table-cell{
+    height: 26px;
+    line-height: 28px;
+    padding: 0;
+}
+/*无图片的表格*/
+.table_widthout_img .layui-table-cell {
+    height: 80px;
+    line-height: 80px;
+}
+.table_widthout_img thead tr .layui-table-cell{
+    height: 26px;
+    line-height: 28px;
+    padding: 0;
+}
+.table_widthout_img .layui-table td {
+    height: 80px;
+    padding: 0 0;
+}
+.layui-table, .layui-table-view {
+    margin:0; 
+}
+/*输入框*/
+.layui-card-header.layuiadmin-card-header-auto {
+    border-radius: 4px;
+}
+/*面板*/
+.layui-card-header {
+    padding: 0 14px;
+    border-bottom: 0;
+}
+.layui-card-body {
+    position: relative;
+    padding: 14px 10px;
+    line-height: 24px;
+    background: #fff;
+	border-radius: 4px;
+	box-shadow: 0 0 10px 0 rgba(31,132,118,0.20);
+}
+.layui-card{
+	background: #f6fbfc;
+	box-shadow: 0 0 0 0 rgba(0,0,0,.05);
+	bottom: 0px;
+}
+.layui-card-header.layuiadmin-card-header-auto {
+    background: #fff;
+    margin-bottom: 12px;
+    border-radius: 3px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    box-shadow: 0 0 10px 0 rgba(31,132,118,0.20);
+}
+.layui-inline button{
+    margin-top: -3px;
+}
+/*表单*/
+body .layui-form-select dl {
+    border: 0 solid #d2d2d2;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+}
+body .layui-form-select dl dd.layui-this {
+    background-color: #ffffff;
+    color: #45bcbb;
+}
+.layui-inline input {
+   font-size: 12px;
+}
+.layui-input:focus, .layui-textarea:focus{
+	border-color:#45bcbb!important;
+}
+input:disabled, textarea:disabled {
+    color: #909399!important;
+    cursor: default;
+}
+.layui-input,
+.layui-select,
+.layui-textarea {
+	height: 30px;
+	line-height: 1;
+	line-height: 38px\9;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #fff;
+	border-radius: 4px;
+}
+.layui-input{
+	height: 32px;
+}
+.layui-form-item .layui-inline {
+    margin-right: 10px;
+}
+.layui-form-radio>i:hover, .layui-form-radioed>i {
+    color: #45bcbb;
+}
+.layui-form-radio>i {
+    font-size: 16px;
+}
+/*弹出窗*/
+body .layui-layer{
+	border-radius: 10px;
+}
+body .layui-layer-title {
+    border-radius: 10px 10px 0 0;
+    color:#000!important;
+    height: 50px!important;
+    line-height: 50px!important;
+    background-color: #ffffff!important;
+}
+.layui-layer-btn{
+	padding: 0 15px 10px;
+	overflow: hidden;
+}
+.layui-layer-btn a {
+    border: 1px solid #45bcbb!important;
+    color: #45bcbb!important;
+    float: right;
+}
+.layui-layer-btn .layui-layer-btn0 {
+    border-color: #45bcbb!important;
+    background-color: #45bcbb!important;
+    color: #fff!important;
+}
+.layui-layer-iframe .layui-layer-btn, .layui-layer-page .layui-layer-btn{
+    border-top: #efefef 1px solid;
+}
+/*按钮*/
+.layui-btn.layui-btn-primary {
+    color: #4796d1;
+    border: 1px solid #4796d1;
+    background: #fff;
+}
+.layui-btn-primary:hover{
+	color: #45bcbb;
+}
+.layui-btn {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 16px;
+	white-space: nowrap;
+	text-align: center;
+	font-size: 12px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.layui-btn{
+	background-color:#45bcbb;
+}
+.layui-laypage .layui-laypage-curr .layui-laypage-em {
+    background-color: #4796d1;
+}
+.layui-card-header {
+    color: #a2acb8;
+}

@@ -1,0 +1,144 @@
+/*统一标题样式*/
+.l_formBody {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 317px;
+}
+.tableContainer {
+	position: absolute;
+	top: 24px;
+	left: 6px;
+	right: 6px;
+	bottom: 0;
+}
+.tableOptionWrap a{
+	padding: 0 6px;
+}
+.layui-table-box{
+	overflow: visible!important;
+}
+.layui-btn .layui-icon-add-1{
+	font-size: 14px;
+}
+.icon-shanchu{
+	font-size: 14px;
+}
+/*~查看页面*/
+#viewWraper{
+	min-height: 200px;
+	margin-bottom: 40px;
+}
+#viewWraper .deviceMessage{
+	background: #fff;
+    border-radius: 4px;
+    padding: 24px 36px;
+    margin-bottom: 12px;
+    box-shadow: 0 0 10px 0 rgba(31, 132, 118, 0.10);
+}
+#viewWraper .processPanel{
+	color: #303133;
+	padding: 24px;
+	background: #fff;
+	box-shadow: 0 0 10px 0 rgba(31, 132, 118, 0.10);
+	overflow: hidden;
+	margin-bottom: 12px;
+}
+.logPannel{
+	color: #303133;
+	padding: 24px;
+	background: #fff;
+	box-shadow: 0 0 10px 0 rgba(31, 132, 118, 0.10);
+	overflow: hidden;
+	margin-bottom: 12px;
+}
+#viewWraper .logPannel .panelTitle{
+	padding-left: 12px;
+}
+#viewWraper .panelTitle{
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+#viewWraper .processLine{
+    padding: 0 26px;
+    overflow: hidden;
+}
+/*当前的颜色*/
+#viewWraper .processLine .current .pic .circle .layui-icon-radio{
+	color: #009688;
+}
+#viewWraper .processLine .current .pic .line{
+	background: #009688;
+}
+#viewWraper .lineItem{
+	margin-left: -10px;
+	overflow: hidden;
+	float: left;
+}
+#viewWraper .lineItem .pic{
+	width: 300px;
+	overflow: hidden;
+}
+#viewWraper .lineItem .pic .circle{
+	float: left;
+}
+#viewWraper .lineItem .pic .circle .layui-icon-radio{
+    color: #909399;
+    margin-left: 14px;
+}
+#viewWraper .lineItem .pic .line{
+    float: left;
+    width: 268px;
+    height: 2px;
+    background: #909399;
+    margin-top: 8px;
+    margin-left: 2px;
+}
+#viewWraper .lineItem .itemText{
+	margin-top: 6px;
+}
+#viewWraper .normalPannel{
+	min-height: 100px;
+	color: #303133;
+	padding: 12px;
+	margin-bottom: 12px;
+	background: #fff;
+	overflow: hidden;
+}
+#viewWraper .msgItem{
+	font-size: 12px;
+	color: #606266;
+	line-height: 36px;
+}
+#viewWraper .isNecessary{
+	color: red;
+	font-size: 12px;
+	margin-left: -10px;
+}
+#viewWraper .imgCan{
+	overflow: hidden;
+	padding:6px 0;
+}
+#viewWraper .imgCan img{
+	width: 100px;
+	height: 100px;
+	margin-right: 30px;
+}
+#viewWraper .layui-table-cell {
+    padding: 0 15px;
+}
+.fixBody{
+	position: fixed;
+	padding: 0 20px;
+	bottom: 0;
+	left: 0;
+}
+.moreMessage {
+    color: #009688;
+    cursor: pointer;
+    line-height: 30px;
+}
+.icon-jiantou8 {
+    display: inline-block;
+    font-size: 12px;
+}
+/*@查看页面*/

@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3847463",
+      "name": "学生",
+      "font_class": "xuesheng",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "7504436",
+      "name": "学生管理",
+      "font_class": "xueshengguanli",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "8156541",
+      "name": "学生",
+      "font_class": "xuesheng1",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "8156558",
+      "name": "学生",
+      "font_class": "xuesheng2",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>设备管理-新增页面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script src="lib/jquery/1.9.1/jquery.js"></script>
+    <script src="lib/ckeditor_standard/ckeditor.js"></script>
+
+</head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+    <input type="hidden" id="uid" name="uid">
+    <div class="layui-form-item">
+        <label class="layui-form-label">会员卡号</label>
+        <div class="layui-input-inline">
+            <input type="text" id="cardnumber" name="cardnumber" lay-verify="required" placeholder="请输入会员卡号" autocomplete="off" class="layui-input" style="width:305px;">
+        </div>
+    </div>
+
+<!--    <a id="detailBtn" class="layui-btn layui-btn layui-btn-xs" lay-event="detail"><i class="layui-icon layui-icon-form"></i>查看</a>-->
+
+    <div class="layui-form-item" style="position:relative;">
+        <label class="layui-form-label">会员电话</label>
+        <div class="layui-input-inline">
+            <input type="text" id="telephone" name="telephone" lay-verify="required" placeholder="请输入会员电话" autocomplete="off" class="layui-input" style="width:305px;">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">会员积分</label>
+        <div class="layui-input-inline">
+            <input type="text" id="integral" name="integral" lay-verify="required" placeholder="请输入会员积分" autocomplete="off" class="layui-input" style="width:305px;">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">会员余额</label>
+        <div class="layui-input-inline">
+            <input type="text" id="balance" name="balance" lay-verify="required" placeholder="请输入余额" autocomplete="off" class="layui-input" style="width:305px;">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">会员介绍</label>
+        <div class="layui-input-inline">
+            <input type="text" id="introduce" name="introduce" lay-verify="required" placeholder="请输入会员介绍" autocomplete="off" class="layui-input" style="width:305px;">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">折扣</label>
+        <div class="layui-input-inline">
+            <input type="text" id="discount" name="discount" lay-verify="required" placeholder="请输入折扣" autocomplete="off" class="layui-input" style="width:305px;">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit lay-filter="LAY-membershipCard-submit" id="LAY-membershipCard-submit" value="确认">
+    </div>
+</div>
+<script src="layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: 'layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload'], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,upload = layui.upload ;
+
+
+        $('.layui-btn.layuiadmin-btn-useradmin').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>洗衣订单-分配工序流程</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="layuiadmin/layui/layui.js"></script>
+    <script src="lib/jquery/1.9.1/jquery.js"></script>
+    <style>
+        .imgWrp{
+            width: 100px;
+            height: 100px;
+            background: #ccc;
+            line-height: 100px;
+            text-align: center;
+            font-size: 50px;
+            position: relative;
+            font-weight: 600;
+        }
+        .imgWrp .foodImg{
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+    <input type="hidden" id="uid" name="uid">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">洗衣工序</label>
+        <div class="layui-input-block" lay-filter="selFilter" style="width:305px;">
+            <select id="workingprocedure" name="workingprocedure" lay-verify="required" style="width:305px;">
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">洗衣流程</label>
+        <div class="layui-input-block" lay-filter="selFilter" style="width:305px;">
+            <select id="technologicalprocess" name="technologicalprocess" lay-verify="required" style="width:305px;">
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit lay-filter="LAY-order-submit" id="LAY-order-submit" value="确认">
+    </div>
+</div>
+<script>
+    layui.config({
+        base: 'layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form','laydate', 'upload'], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,laydate = layui.laydate
+            ,upload = layui.upload ;
+
+        //实例化时间插件
+        laydate.render({
+            elem: '#weekdate'
+        });
+
+        $(function () {
+            $.ajax({
+                url: "laundryorder/queryWorkingprocedureList" ,
+                type: "get",
+                dataType: "json",
+                success: function (datas) {
+                    if (datas.optStatusCode == 10400) {
+                        var data=datas.data;  selData = data;
+                        var optionstring = "";
+                        for (var j = 0; j < data.length; j++) {
+                            optionstring += "<option value=\"" + data[j].id + "\" >" + data[j].workingprocedure + "</option>";
+                        }
+                        $("#workingprocedure").append("<option value=''>请选择...</option> " + optionstring);
+                        layui.use('form', function () {
+                            var form = layui.form;
+                            form.render('select');
+                        });
+                    } else {
+                        layer.msg(datas.message);
+                    }  },
+                error: function (msg) {
+                    alert("下拉框加载出错了！");
+                }
+            });
+
+            $.ajax({
+                url: "laundryorder/queryTechnologicalprocessList" ,
+                type: "get",
+                dataType: "json",
+                success: function (datas) {
+                    if (datas.optStatusCode == 10400) {
+                        var data=datas.data;  selData = data;
+                        var optionstring = "";
+                        for (var j = 0; j < data.length; j++) {
+                            optionstring += "<option value=\"" + data[j].id + "\" >" + data[j].technologicalprocess + "</option>";
+                        }
+                        $("#technologicalprocess").append("<option value=''>请选择...</option> " + optionstring);
+                        layui.use('form', function () {
+                            var form = layui.form;
+                            form.render('select');
+                        });
+                    } else {
+                        layer.msg(datas.message);
+                    }  },
+                error: function (msg) {
+                    alert("下拉框加载出错了！");
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

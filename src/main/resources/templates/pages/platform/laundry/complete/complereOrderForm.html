@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>洗衣订单-衣服详情</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="lib/jquery/1.9.1/jquery.js"></script>
+    <style>
+        .mainTable{
+            width: 100%;
+        }
+        .mainTable td{
+            border: 1px solid #ccc;
+            min-height: 35px;
+            background: #ececec;
+            font-size: 14px;
+            color: #333;
+            line-height: 26px;
+            padding: 6px;
+            text-align: center;
+        }
+        .mainTable tr:nth-child(1) td{
+            color: #009688;
+        }
+        .tableWrp{
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+<div style="padding: 20px 0 0 0;">
+    <div class="tableWrp">
+        <table id="mainTable" class="mainTable">
+            <tr id="tableHeader">
+                <td>衣服种类</td>
+                <td>衣服颜色</td>
+                <td>衣服数量</td>
+                <td>衣服品质</td>
+                <td>清洗设备</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="layuiadmin/layui/layui.js"></script>
+<script>
+    function renderOrder(ordernum){
+        $.ajax({
+            type:'get',
+            url:'laundryorder/queryColthesDeviceByNum',
+            data:{
+                ordernum:ordernum
+            },
+            success:function(response){
+                var backCode=response.optStatusCode;
+                if(backCode==10400){
+                    response=response.data;
+                    //去重null展示
+                    for(var i=0;i<response.length;i++){
+                        var dataIt=response[i];
+                        for(var j in dataIt){
+                            if(!dataIt[j]){
+                                dataIt[j]='无';
+                            }
+                        }
+                    };
+                    var tableDataStr='';
+                    for(var i=0;i<response.length;i++){
+                        tableDataStr+='<tr id="tableHeader">';
+                        tableDataStr+='<td>'+response[i]['clname']+'</td>';
+                        tableDataStr+='<td>'+response[i]['color']+'</td>';
+                        tableDataStr+='<td>'+(response[i]['clothescount'])+'</td>';
+                        tableDataStr+='<td>'+(response[i]['brand'])+'</td>';
+                        tableDataStr+='<td>'+(response[i]['equipmentname'])+'</td>';
+                        tableDataStr+='</tr>';
+                    }
+                    $('#tableHeader').after(tableDataStr);
+                }
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+.iselect {
+	display: inline-block;
+	font-size: 12px;
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #e6e6e6;
+	padding: 0 10px;
+	width: 149px;
+	margin-top: 6px;
+	position: relative;
+	color: #909399;
+	border-radius: 4px;
+}
+.iselect{
+	display: none;
+}
+
+.iselect:hover {
+	border: 1px solid #009688;
+}
+
+.iselect .ioption {
+	position: absolute;
+	left: -1px;
+	width: 170px;
+	height: 0px;
+	overflow: hidden;
+	/*border-bottom: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;*/
+	margin-top: 6px;
+	background: #fff;
+	z-index: 11;
+	height: 0;
+	border-radius: 4px;
+	display: none;
+	box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+	opacity: 0.3;
+}
+
+.iselect .ioption li {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	/*border-left: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;*/
+	padding: 0 10px;
+	color: #303133;
+}
+
+.iselect .ioption li:nth-child(1) {
+	margin-top: 7px;
+	color: #009688;
+}
+
+.iselect .ioption li:hover {
+	background: rgba(0, 150, 136, 0.1);
+}
+
+.selectIco {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 5px;
+	right: 3px;
+	text-align: center;
+	line-height: 20px;
+}
+
+.selectIco .iconfont {
+	font-size: 14px;
+	color: #909399;
+}

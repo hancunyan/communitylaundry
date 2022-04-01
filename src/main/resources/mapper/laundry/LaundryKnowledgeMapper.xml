@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.laundry.LaundryKnowledgeMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.laundry.LaundryKnowledge" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.computer.community_laundry.support.entity.laundry.LaundryKnowledgeWithBLOBs" extends="BaseResultMap" >
+    <result column="knowledge" property="knowledge" jdbcType="LONGVARCHAR" />
+    <result column="marketingactivities" property="marketingactivities" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, createtime, updatetime
+  </sql>
+  <sql id="Blob_Column_List" >
+    knowledge, marketingactivities
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from laundry_knowledge
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryKnowledge" resultMap="ResultMapWithBLOBs" >
+    select
+    id,knowledge
+    from laundry_knowledge
+  </select>
+
+  <select id="queryPromotion" resultMap="ResultMapWithBLOBs" >
+    select
+    id,marketingactivities
+    from laundry_knowledge
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from laundry_knowledge
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryKnowledgeWithBLOBs" >
+    insert into laundry_knowledge (id, createtime, updatetime, 
+      knowledge, marketingactivities)
+    values (#{id,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{knowledge,jdbcType=LONGVARCHAR}, #{marketingactivities,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryKnowledgeWithBLOBs" >
+    insert into laundry_knowledge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="knowledge != null" >
+        knowledge,
+      </if>
+      <if test="marketingactivities != null" >
+        marketingactivities,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="marketingactivities != null" >
+        #{marketingactivities,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryKnowledgeWithBLOBs" >
+    update laundry_knowledge
+    <set >
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="knowledge != null" >
+        knowledge = #{knowledge,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="marketingactivities != null" >
+        marketingactivities = #{marketingactivities,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryKnowledgeWithBLOBs" >
+    update laundry_knowledge
+    set createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      knowledge = #{knowledge,jdbcType=LONGVARCHAR},
+      marketingactivities = #{marketingactivities,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryKnowledge" >
+    update laundry_knowledge
+    set createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

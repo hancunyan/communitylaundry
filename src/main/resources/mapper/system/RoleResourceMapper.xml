@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.system.RoleResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.system.RoleResource" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="roleid" property="roleid" jdbcType="INTEGER" />
+    <result column="resourceid" property="resourceid" jdbcType="INTEGER" />
+    <result column="types" property="types" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roleid, resourceid, types
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_resource
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectRoleResourceByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_role_resource
+    where roleid = #{roleid,jdbcType=INTEGER}
+  </select>
+
+  <!--根据用户id 查询用户所拥有的权限页面-->
+  <select id="queryPermissionByUserId" parameterType="java.lang.Integer" resultType="com.computer.community_laundry.support.entity.system.SysResource">
+      select p.resourceid,p.pid,p.resourcename,p.resourceurl
+        from sys_user u
+        LEFT JOIN sys_user_role sru on u.userid= sru.userid
+        LEFT JOIN sys_role r on sru.roleid=r.roleid
+        LEFT JOIN sys_role_resource spr on spr.roleid=r.roleid
+        LEFT JOIN sys_resource p on p.resourceid = spr.resourceid
+        where u.userid=#{userid} and p.resourcetype = '1'
+ </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_role_resource
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByRoleId" parameterType="java.lang.Integer" >
+    delete from sys_role_resource
+    where roleid = #{roleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.system.RoleResource" >
+    insert into sys_role_resource (id, roleid, resourceid, 
+      types)
+    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{resourceid,jdbcType=INTEGER}, 
+      #{types,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computer.community_laundry.support.entity.system.RoleResource" >
+    insert into sys_role_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="resourceid != null" >
+        resourceid,
+      </if>
+      <if test="types != null" >
+        types,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="resourceid != null" >
+        #{resourceid,jdbcType=INTEGER},
+      </if>
+      <if test="types != null" >
+        #{types,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computer.community_laundry.support.entity.system.RoleResource" >
+    update sys_role_resource
+    <set >
+      <if test="roleid != null" >
+        roleid = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="resourceid != null" >
+        resourceid = #{resourceid,jdbcType=INTEGER},
+      </if>
+      <if test="types != null" >
+        types = #{types,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.system.RoleResource" >
+    update sys_role_resource
+    set roleid = #{roleid,jdbcType=INTEGER},
+      resourceid = #{resourceid,jdbcType=INTEGER},
+      types = #{types,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

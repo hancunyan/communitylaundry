@@ -1,0 +1,109 @@
+#item1_tip #tip_item1 .tip_type1_logo {
+	background: rgb(45,200,57);
+}
+
+#item1_tip #tip_item2 .tip_type1_logo {
+	background: rgb(20,139,246);
+}
+
+#item1_tip #tip_item3 .tip_type1_logo {
+	background: rgb(123,0,250);
+}
+
+#item3_tip #tip_item1 .tip_type2_logo {
+	background: #7B00FA;
+}
+
+#item3_tip #tip_item2 .tip_type2_logo {
+	background: #0242FA;
+}
+
+#item4_tip #tip_item1 .tip_type2_logo {
+	background: #32C936;
+}
+
+#item4_tip #tip_item2 .tip_type2_logo {
+	background: #0242FA;
+}
+
+#item5_tip #tip_item1 .tip_type2_logo {
+	background: #7B00FA;
+}
+
+#item5_tip #tip_item2 .tip_type2_logo {
+	background: rgb(20,139,246);
+}
+
+
+
+#charts2 {
+	position: absolute;
+	top: 20px;
+	bottom: 85px;
+	left: 0px;
+	right: 0px;
+}
+
+#chart2_table_div{
+    text-align: left;
+    padding: 5px 15px 5px 25px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 90px;
+}
+#chart2_table_div table{
+	width: 100%;
+}
+#chart2_table_div table tr{
+    height: 25px;
+}
+#chart2_table_div td{
+	font-size: 0;
+}
+#chart2_table_div td span{
+	font-size: 12px;
+}
+
+#chart2_table_div td .charts2-item-title-logo{
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	margin-bottom: 2px;
+	margin-right: 3px;
+}
+#chart2_table_div td .charts2-item-title{
+	color: rgba(0,0,0,0.65);
+}
+#chart2_table_div .charts2-item-text-d-td{
+	/*text-align: right;*/
+	padding-right: 5px;
+	color: rgba(0,0,0,0.45);
+}
+#chart2_table_div .charts2-item-text-c-td{
+	/*text-align: right;*/
+	padding-right: 10px;
+	color: rgba(0,0,0,0.65);
+}
+#charts2-item-title-logo-fsqryjr{
+	background: #0242FA;
+}
+#charts2-item-title-logo-drjr{
+	background: #32C936;
+}
+#charts2-item-title-logo-lgsj{
+	background: #7B00FA;
+}
+#charts2-item-title-logo-drjc{
+	background: #008673;
+}
+#charts2-item-title-logo-srwtjtc{
+	background: #148BF6;
+}
+#charts2-item-title-logo-qt{
+	background: #FAD337;
+}
+
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>社区洗衣服务应用平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="css/login.css" media="all">
+    <link rel="stylesheet" href="css/icon2/iconfont.css" media="all">
+    <script src="lib/jquery/1.9.1/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="layuiadmin/layui/layui.js"></script>
+    <script src="js/remDom.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="body_con login_bg">
+    <div class="input_con">
+        <div class="con_inner">
+            <form method="post" action="submitLogin" id="theForm">
+                <div class=" left loginForm layui-form" >
+                    <div class="logo_wrp">
+                        <img class="logo" id="logoImg" src="images/yuansu.png"/>
+                    </div>
+                    <div class="mainTitle">社区洗衣服务应用平台</div>
+                    <div class="mainTitle" style="margin-bottom: .18rem;"></div>
+                    <span class="help-block" th:text="${msg}"> </span>
+                    <div class="inputItem">
+                        <div class="iconWrp">
+                            <img src="images/login/yonghu.png" alt=""/>
+                        </div>
+                        <input type="text" name="username" autocomplete="new-name" required lay-verify="required"
+                               id="username" value="李四" placeholder="请输入用户账号"/>
+                    </div>
+                    <div class="inputItem">
+                        <div class="iconWrp">
+                            <img src="images/login/mima.png" alt=""/>
+                        </div>
+                        <input type="password" style="display: none" name="password1">
+                        <input type="password" name="password" autocomplete="new-password" required
+                               lay-verify="required" value="123456" id="password" placeholder="请输入登录密码"/>
+                    </div>
+                    <div class="subBtn" lay-submit lay-filter="LAY-user-search">登录</div>
+                </div>
+            </form>
+            <div class="right">
+                <i class="iconfont icon-xuesheng1"></i>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!--非模块化的通用工具在这里定义-->
+<script>
+    layui.config({
+        base: 'layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'layer'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            layer = layui.layer,
+            keyBody = document.getElementsByTagName('body')[0];
+        form.on('submit(LAY-user-search)', function(data){
+            var field = data.field;
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: "/login",
+                data: {
+                    username:field.username,
+                    password:field.password
+                },
+                error: function (request) {
+                    alert("Connection error");
+                },
+                success: function (data) {
+                    if(data.code == 200){
+                        location.replace("/index");
+                    } else if (data.code == 402){
+                        layer.msg("用户名不存在！",{icon:7});
+                    } else if (data.code == 403){
+                        layer.msg("密码错误！",{icon:7});
+                    }
+                }
+            });
+        });
+
+        //登录
+        keyBody.onkeydown = function (event) {
+            if (event.keyCode == 13) {
+                subFunction();
+            }
+        };
+    });
+    //输入框样式
+    $('.inputItem input').focus(function () {
+        $(this).parent('.inputItem').addClass('focus');
+    });
+    $('.inputItem input').blur(function () {
+        $(this).parent('.inputItem').removeClass('focus');
+    });
+</script>

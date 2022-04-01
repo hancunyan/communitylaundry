@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.laundry.MembershipCardMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.laundry.MembershipCard" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cardnumber" property="cardnumber" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="gradeid" property="gradeid" jdbcType="INTEGER" />
+    <result column="integral" property="integral" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="discount" property="discount" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cardnumber, telephone, gradeid, integral, balance, introduce, discount, createtime, 
+    updatetime
+  </sql>
+
+  <select id="queryMembershipCardPaging" resultMap="BaseResultMap">
+    select
+    ca.id as id, ca.cardnumber as cardnumber, ca.telephone as telephone,
+    ca.gradeid as gradeid, ca.integral as integral, ca.balance as balance,
+    ca.introduce as introduce, ca.discount as discount,
+    ca.createtime as createtime,l.gradename as gradename
+    from laundry_membership_card ca left join laundry_membership_level l on ca.gradeid = l.id
+    <where>
+      <if test="telephone != null and telephone != ''">
+        and ca.telephone = #{telephone}
+      </if>
+    </where>
+    order by ca.createtime desc
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from laundry_membership_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from laundry_membership_card
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.laundry.MembershipCard" >
+    insert into laundry_membership_card (id, cardnumber, telephone, 
+      gradeid, integral, balance, 
+      introduce, discount, createtime, 
+      updatetime)
+    values (#{id,jdbcType=INTEGER}, #{cardnumber,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{gradeid,jdbcType=INTEGER}, #{integral,jdbcType=VARCHAR}, #{balance,jdbcType=VARCHAR}, 
+      #{introduce,jdbcType=VARCHAR}, #{discount,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computer.community_laundry.support.entity.laundry.MembershipCard" >
+    insert into laundry_membership_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cardnumber != null" >
+        cardnumber,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="gradeid != null" >
+        gradeid,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cardnumber != null" >
+        #{cardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeid != null" >
+        #{gradeid,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computer.community_laundry.support.entity.laundry.MembershipCard" >
+    update laundry_membership_card
+    <set >
+      <if test="cardnumber != null" >
+        cardnumber = #{cardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeid != null" >
+        gradeid = #{gradeid,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.laundry.MembershipCard" >
+    update laundry_membership_card
+    set cardnumber = #{cardnumber,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      gradeid = #{gradeid,jdbcType=INTEGER},
+      integral = #{integral,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

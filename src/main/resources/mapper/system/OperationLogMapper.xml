@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.system.OperationLogMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.system.OperationLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="oper_modul" property="operModul" jdbcType="VARCHAR" />
+    <result column="oper_type" property="operType" jdbcType="VARCHAR" />
+    <result column="oper_desc" property="operDesc" jdbcType="VARCHAR" />
+    <result column="oper_user_id" property="operUserId" jdbcType="INTEGER" />
+    <result column="oper_user_name" property="operUserName" jdbcType="VARCHAR" />
+    <result column="oper_method" property="operMethod" jdbcType="VARCHAR" />
+    <result column="oper_url" property="operUrl" jdbcType="VARCHAR" />
+    <result column="oper_ip" property="operIp" jdbcType="VARCHAR" />
+    <result column="oper_create_time" property="operCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.computer.community_laundry.support.entity.system.OperationLogWithBLOBs" extends="BaseResultMap" >
+    <result column="oper_requ_param" property="operRequParam" jdbcType="LONGVARCHAR" />
+    <result column="oper_resp_param" property="operRespParam" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, oper_modul, oper_type, oper_desc, oper_user_id, oper_user_name, oper_method, 
+    oper_url, oper_ip, oper_create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    oper_requ_param, oper_resp_param
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from operationlog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!--条件查询操作日志信息-->
+  <select id="queryOperLogPaging" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from operationlog
+    <where>
+      1=1
+      <if test="username != null and username != ''">
+        and oper_user_name like concat('%',#{username,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="opermodel != null and opermodel != ''">
+        and oper_modul like concat('%',#{opermodel,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="opertype != null and opertype != ''">
+        and oper_type = #{opertype,jdbcType=VARCHAR}
+      </if>
+      <if test="startTime!=null and startTime!=''">
+        and date_format(oper_create_time, '%Y-%m-%d %H:%i:%s') &gt;= date_format(#{startTime}, '%Y-%m-%d %H:%i:%s')
+      </if>
+      <if test="endTime!=null and endTime!=''">
+        and date_format(oper_create_time, '%Y-%m-%d %H:%i:%s') &lt;= date_format(#{endTime}, '%Y-%m-%d %H:%i:%s')
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from operationlog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <!--操作日志添加-->
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.system.OperationLogWithBLOBs" >
+    insert into operationlog (id, oper_modul, oper_type, 
+      oper_desc, oper_user_id, oper_user_name, 
+      oper_method, oper_url, oper_ip, oper_requ_param, oper_resp_param
+      )
+    values (#{id,jdbcType=INTEGER}, #{operModul,jdbcType=VARCHAR}, #{operType,jdbcType=VARCHAR}, 
+      #{operDesc,jdbcType=VARCHAR}, #{operUserId,jdbcType=INTEGER}, #{operUserName,jdbcType=VARCHAR}, 
+      #{operMethod,jdbcType=VARCHAR}, #{operUrl,jdbcType=VARCHAR}, #{operIp,jdbcType=VARCHAR}, 
+      #{operRequParam,jdbcType=LONGVARCHAR}, #{operRespParam,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.computer.community_laundry.support.entity.system.OperationLogWithBLOBs" >
+    update operationlog
+    set oper_modul = #{operModul,jdbcType=VARCHAR},
+      oper_type = #{operType,jdbcType=VARCHAR},
+      oper_desc = #{operDesc,jdbcType=VARCHAR},
+      oper_user_id = #{operUserId,jdbcType=INTEGER},
+      oper_user_name = #{operUserName,jdbcType=VARCHAR},
+      oper_method = #{operMethod,jdbcType=VARCHAR},
+      oper_url = #{operUrl,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP},
+      oper_requ_param = #{operRequParam,jdbcType=LONGVARCHAR},
+      oper_resp_param = #{operRespParam,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.system.OperationLog" >
+    update operationlog
+    set oper_modul = #{operModul,jdbcType=VARCHAR},
+      oper_type = #{operType,jdbcType=VARCHAR},
+      oper_desc = #{operDesc,jdbcType=VARCHAR},
+      oper_user_id = #{operUserId,jdbcType=INTEGER},
+      oper_user_name = #{operUserName,jdbcType=VARCHAR},
+      oper_method = #{operMethod,jdbcType=VARCHAR},
+      oper_url = #{operUrl,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

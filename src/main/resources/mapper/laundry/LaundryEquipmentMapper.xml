@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.laundry.LaundryEquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.laundry.LaundryEquipment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="equipmentname" property="equipmentname" jdbcType="VARCHAR" />
+    <result column="manufactor" property="manufactor" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="capacity" property="capacity" jdbcType="VARCHAR" />
+    <result column="workinglimit" property="workinglimit" jdbcType="VARCHAR" />
+    <result column="washingobjec" property="washingobjec" jdbcType="VARCHAR" />
+    <result column="characteristic" property="characteristic" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, equipmentname, manufactor, model, capacity, workinglimit, washingobjec, characteristic, 
+    status, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from laundry_equipment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryEquipmentByStatus" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from laundry_equipment
+    where status = #{status,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryEquipmentCapacity" resultMap="BaseResultMap" >
+    select e.id as id,e.equipmentname as equipmentname,e.capacity as capacity,count(equipmentid) as clothescount from
+    laundry_clothes c left join laundry_equipment e on c.equipmentid = e.id group by c.equipmentid
+  </select>
+
+  <select id="queryEquipmentPaging" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from laundry_equipment
+    <where>
+      <if test="ename != null and ename != ''">
+        and equipmentname like CONCAT('%', #{ename}, '%')
+      </if>
+      <if test="estate != null and estate != ''">
+        and status = #{estate}
+      </if>
+    </where>
+    order by createtime desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from laundry_equipment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryEquipment" >
+    insert into laundry_equipment (id, equipmentname, manufactor, 
+      model, capacity, workinglimit, 
+      washingobjec, characteristic, status, 
+      createtime, updatetime)
+    values (#{id,jdbcType=INTEGER}, #{equipmentname,jdbcType=VARCHAR}, #{manufactor,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{capacity,jdbcType=VARCHAR}, #{workinglimit,jdbcType=VARCHAR}, 
+      #{washingobjec,jdbcType=VARCHAR}, #{characteristic,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryEquipment" >
+    insert into laundry_equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="equipmentname != null" >
+        equipmentname,
+      </if>
+      <if test="manufactor != null" >
+        manufactor,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="capacity != null" >
+        capacity,
+      </if>
+      <if test="workinglimit != null" >
+        workinglimit,
+      </if>
+      <if test="washingobjec != null" >
+        washingobjec,
+      </if>
+      <if test="characteristic != null" >
+        characteristic,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentname != null" >
+        #{equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="manufactor != null" >
+        #{manufactor,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null" >
+        #{capacity,jdbcType=VARCHAR},
+      </if>
+      <if test="workinglimit != null" >
+        #{workinglimit,jdbcType=VARCHAR},
+      </if>
+      <if test="washingobjec != null" >
+        #{washingobjec,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristic != null" >
+        #{characteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryEquipment" >
+    update laundry_equipment
+    <set >
+      <if test="equipmentname != null" >
+        equipmentname = #{equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="manufactor != null" >
+        manufactor = #{manufactor,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null" >
+        capacity = #{capacity,jdbcType=VARCHAR},
+      </if>
+      <if test="workinglimit != null" >
+        workinglimit = #{workinglimit,jdbcType=VARCHAR},
+      </if>
+      <if test="washingobjec != null" >
+        washingobjec = #{washingobjec,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristic != null" >
+        characteristic = #{characteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryEquipment" >
+    update laundry_equipment
+    set equipmentname = #{equipmentname,jdbcType=VARCHAR},
+      manufactor = #{manufactor,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=VARCHAR},
+      workinglimit = #{workinglimit,jdbcType=VARCHAR},
+      washingobjec = #{washingobjec,jdbcType=VARCHAR},
+      characteristic = #{characteristic,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>社区洗衣服务应用平台</title>
+		<!--style-->
+		<link rel="stylesheet" href="layuiadmin/layui/css/layui.css">
+		<link rel="stylesheet" href="css/iconfont/iconfont.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<!--主题色-->
+		<link id="theTheme" rel="stylesheet" href="css/theme/theme1.css" />
+		<!--script-->
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<!--		<script type="text/javascript" src="js/jquery.cookie.js"></script>-->
+		<script type="text/javascript" src="layuiadmin/layui/layui.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="headNav" class="head_color">
+				<div class="navWraper">
+					<div class="logo">
+						<div class="logoImg">
+							<img id="logoImg" src="images/yuansu.png" alt="">
+						</div>
+						<div class="logoText">
+							社区洗衣服务应用平台
+						</div>
+					</div>
+					<ul class="firstNavList" id="firstNavList">
+						<li class="firstItem p11" style="color: rgb(255, 255, 255);">
+							<span class="iconfont icon-home"></span>
+							<span href="dashboard">实时监控</span>
+						</li>
+						<li class="firstItem p12">
+							<span class="iconfont icon-guanli"></span>
+							<span href="">统计分析</span>
+							<span class="rotateDom">
+								<span class="iconfont icon-xiajiantou1"></span>
+							</span>
+							<ul class="navChil">
+								<div class="navChilInner">
+									<li href="punchCard">打卡痕迹</li>
+									<li href="tempstatisManage">测温统计</li>
+									<li href="dashboard_search">按日健康统计</li>
+									<li href="timeFragment?time=week">按周健康统计</li>
+									<li href="timeFragment?time=month">按月健康统计</li>
+								</div>
+							</ul>
+						</li>
+						
+						<li class="firstItem p12">
+							<span class="iconfont icon-guanli"></span>
+							<span href="">信息管理</span>
+							<span class="rotateDom">
+								<span class="iconfont icon-xiajiantou1"></span>
+							</span>
+							<ul class="navChil">
+								<div class="navChilInner">
+									<li href="personManage">学生管理</li>
+									<li href="schoolManage">学校管理</li>
+									<li href="gradeManage">年级管理</li>
+									<li href="classManage">班级管理</li>
+									<li href="deviceManage">设备管理</li>
+								</div>
+							</ul>
+						</li>
+						<li class="firstItem p12">
+							<span class="iconfont icon-guanli"></span>
+							<span href="">系统管理</span>
+							<span class="rotateDom">
+								<span class="iconfont icon-xiajiantou1"></span>
+							</span>
+							<ul class="navChil">
+								<div class="navChilInner">
+									<li href="personManage">商家管理</li>
+									<li href="schoolManage">用户管理</li>
+									<li href="gradeManage">角色管理</li>
+								</div>
+							</ul>
+						</li>
+					</ul>
+					<div id="user">
+						<div class="userControll">
+							<img src="images/user.png" alt=""/>
+							<input id="uid" type="hidden" th:value="${userid}"/>
+							<span id="userLabel" sec:authentication="name"></span>
+							<span class="rotateDom">
+								<span class="iconfont icon-xiajiantou1"></span>
+							</span>
+							<ul class="navChil">
+								<div class="navChilInner">
+									<a href="/loginout"><li><span id="goOut">退出登录</span></li></a>
+								</div>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="section">
+				<iframe id="initPage" src="appointmentOrderManage" name="initPage" frameborder="0"></iframe>
+			</div>
+			<!--这个是一个信使-->
+			<div id="courier" name='none'>
+				<div class="couInner">
+					<div class="content">
+						<div class="couNumber">有<span id='courier_num' class="theNumber"></span>条报警</div>
+					</div>
+					<div class="couCloseButton">×</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<!--<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>-->
+<script>
+	layui.config({
+		base: 'layuiadmin/' //静态资源所在路径
+	}).extend({
+		index: 'lib/index' //主入口模块
+	}).use(['layer', 'form'], function() {
+		var form = layui.form;
+		var layer = layui.layer;
+		form.on('radio', function(data) {
+			//执行样式文件的替换
+			localStorage.setItem('skin', data.value);
+			//执行切换皮肤
+			setSkin();
+		});
+
+		$(function () {
+			//获取动态导航
+			$.ajax({
+				url: 'roleresource/queryPermissionByUserId',
+				type: "get",
+				success: NavList,
+				error: function () {
+					layer.msg("导航信息加载失败！");
+				}
+			});
+		});
+
+		function NavList(data){
+			var strDom='';
+			$('#firstNavList').html('')
+			for(var i=0;i<data.length;i++){
+				if(data[i].children.length != 0){
+					var html = NavChil(data[i].children)
+				}else{
+					var html = ''
+				}
+				
+				strDom+=`
+				<li class="firstItem p12">
+							<span class="iconfont icon-home"></span>
+							<span href="`+data[i].resourceurl+`">`+data[i].resourcename+`</span>
+							`+html+`
+						</li>
+					
+				`
+			}
+			$('#firstNavList').html(strDom)
+		};
+
+		function NavChil(data){
+			var str = '';
+			str += `
+			<span class="rotateDom">
+								<span class="iconfont icon-xiajiantou1"></span>
+							</span>
+							<ul class="navChil">
+								<div class="navChilInner" id="navChilInner">
+									`+NavNode(data)+`
+								</div>
+							</ul>
+			`
+			return str;
+		}
+
+		function NavNode(data){
+			var str = '';
+			for(var i=0;i<data.length;i++){
+				str+=`
+					<li href="`+data[i].resourceurl+`">`+data[i].resourcename+`</li>
+				`
+			}
+			return str;
+		}
+		//赋值样式
+		function setSkin() {
+			var skinLocal = localStorage.getItem('skin');
+			if (!skinLocal) {
+				skinLocal = 1;
+			}
+			$("input[name=skin][value=" + skinLocal + "]").attr("checked", true);
+			form.render();
+			if (skinLocal == 1) {
+				$('#theTheme').attr('href', 'css/theme/theme1.css');
+			} else {
+				$('#theTheme').attr('href', 'css/theme/theme2.css');
+			}
+		}
+		setSkin();
+	});
+	//导航动态样式
+	$(function(){
+		$('.couCloseButton').click(function(event){
+			$('#courier').animate({
+				'right':'-320px'
+			})
+			event.stopPropagation();
+		})
+		$('#courier').click(function(){
+			$('#courier').animate({
+				'right':'-320px'
+			})
+			$('#initPage').attr('src','./pages/warningInstanceManage/reportpoliceManage.html');
+		});
+		$('#goOut').click(function(){
+			//推出登陸清空cookie
+			$.cookie('Authorization',null);
+			sessionStorage.setItem('UserName','');
+			sessionStorage.setItem('RoleID','');
+			window.location.href='./login.html?type=1';
+		})
+
+		$('#firstNavList').on('click','.navChilInner li',function(){
+			var href=$(this).attr('href');
+			$('.navChilInner li').attr('style','');
+			$(this).css('color','#009688');
+			$('#initPage').attr('src',href);
+		})
+		// $('.navChilInner li').click(function (){
+		// 	var href=$(this).attr('href');
+		// 	console.log(href)
+		// 	$('.navChilInner li').attr('style','');
+		// 	$(this).css('color','#009688');
+		// 	$('#initPage').attr('src',href);
+		// })
+		$('.firstItem').click(function(){
+			$('.firstItem').attr('style','');
+			$(this).css('color','#fff');
+		})
+
+		$('#firstNavList').on('click','.firstItem>span',function(){
+			var href=$(this).attr('href');
+			if(href){
+				$('#initPage').attr('src',href);
+				$('.navChilInner li').attr('style','');
+				$(this).parent('.firstItem').find('.navChilInner').children('li').eq(0).css('color','#009688')
+			}
+		})
+		// $('.firstItem>span').click(function(){
+		// 	var href=$(this).attr('href');
+		// 	console.log(href)
+		// 	if(href){
+		// 		$('#initPage').attr('src',href);
+		// 		$('.navChilInner li').attr('style','');
+		// 		$(this).parent('.firstItem').find('.navChilInner').children('li').eq(0).css('color','#009688')
+		// 	}
+		// })
+	})
+</script>

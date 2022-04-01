@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.system.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.system.SysUser" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="usernum" property="usernum" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="emails" property="emails" jdbcType="VARCHAR" />
+    <result column="mobiles" property="mobiles" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="usertype" property="usertype" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, username, password, usernum, realname, emails, mobiles, sex, usertype,
+    address,createtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryUserByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectUserList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    <where>
+      <if test="username != null and username != ''">
+        and username like CONCAT('%', #{username}, '%')
+      </if>
+      <if test="mobiles != null and mobiles != ''">
+        and mobiles = #{mobiles}
+      </if>
+      <if test="usertype != null and usertype!= ''">
+        and usertype = #{usertype}
+      </if>
+    </where>
+    order by createtime desc
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.system.SysUser" >
+    insert into sys_user (userid, username, password, 
+      usernum, realname, emails, 
+      mobiles, sex,
+      usertype, address)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{usernum,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{emails,jdbcType=VARCHAR}, 
+      #{mobiles,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{usertype,jdbcType=VARCHAR},
+       #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true"  keyProperty="userid" parameterType="com.computer.community_laundry.support.entity.system.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="usernum != null" >
+        usernum,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="emails != null" >
+        emails,
+      </if>
+      <if test="mobiles != null" >
+        mobiles,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="usertype != null" >
+        usertype,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usernum != null" >
+        #{usernum,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="emails != null" >
+        #{emails,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiles != null" >
+        #{mobiles,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computer.community_laundry.support.entity.system.SysUser" >
+    update sys_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usernum != null" >
+        usernum = #{usernum,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="emails != null" >
+        emails = #{emails,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiles != null" >
+        mobiles = #{mobiles,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        usertype = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.system.SysUser" >
+    update sys_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      usernum = #{usernum,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      emails = #{emails,jdbcType=VARCHAR},
+      mobiles = #{mobiles,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      usertype = #{usertype,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateStateById" parameterType="com.computer.community_laundry.support.entity.system.SysUser" >
+    update sys_user
+    set
+      status = #{status,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

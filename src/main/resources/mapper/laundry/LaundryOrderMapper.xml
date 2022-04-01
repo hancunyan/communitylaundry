@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.computer.community_laundry.mapper.laundry.LaundryOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.computer.community_laundry.support.entity.laundry.LaundryOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ordernum" property="ordernum" jdbcType="VARCHAR" />
+    <result column="laundryuserid" property="laundryuserid" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="reservationtaketime" property="reservationtaketime" jdbcType="TIMESTAMP" />
+    <result column="reservationgivetime" property="reservationgivetime" jdbcType="TIMESTAMP" />
+    <result column="reservationstatus" property="reservationstatus" jdbcType="VARCHAR" />
+    <result column="appointmentresults" property="appointmentresults" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="workingprocedure" property="workingprocedure" jdbcType="VARCHAR" />
+    <result column="technologicalprocess" property="technologicalprocess" jdbcType="VARCHAR" />
+    <result column="clothespic" property="clothespic" jdbcType="VARCHAR" />
+    <result column="paymentstatus" property="paymentstatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ordernum, laundryuserid, price, reservationtaketime, reservationgivetime, reservationstatus, 
+    appointmentresults, remarks, createtime, updatetime, requirement, workingprocedure, 
+    technologicalprocess, clothespic, paymentstatus
+  </sql>
+
+  <select id="queryPriceList" resultMap="BaseResultMap" >
+    select
+    id,varieties,price
+    from laundry_price_list
+  </select>
+
+  <select id="queryOrderPagingPayment" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from laundry_order
+    order by createtime desc
+  </select>
+
+  <select id="queryOrderPaging" resultType="com.computer.community_laundry.support.entity.laundry.LaundryOrder" parameterType="java.lang.String" >
+    select
+    o.id as id, o.ordernum as ordernum, o.laundryuserid as laundryuserid,
+    o.price as price, o.reservationtaketime as reservationtaketime,
+    o.reservationgivetime as reservationgivetime, o.reservationstatus as reservationstatus,
+    o.appointmentresults as appointmentresults, o.remarks as remarks, o.createtime as createtime,
+    o.requirement as requirement, o.workingprocedure as workingprocedure,
+    o.technologicalprocess as technologicalprocess, o.clothespic as clothespic,
+    o.paymentstatus as paymentstatus,u.username as username,u.password as password,
+    u.address as address,u.mobiles as mobiles
+    from laundry_order o left join sys_user u on o.laundryuserid = u.userid
+    <where>
+      <if test="phone != null and phone != ''">
+        and u.mobiles = #{phone}
+      </if>
+      <if test="status != null and status != ''">
+        and o.reservationstatus = #{status}
+      </if>
+    </where>
+    order by o.createtime desc
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from laundry_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from laundry_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryOrder" >
+    insert into laundry_order (id, ordernum, laundryuserid, 
+      price, reservationtaketime, reservationgivetime, 
+      reservationstatus, appointmentresults, 
+      remarks, createtime, updatetime, 
+      requirement, workingprocedure, technologicalprocess, 
+      clothespic, paymentstatus)
+    values (#{id,jdbcType=INTEGER}, #{ordernum,jdbcType=VARCHAR}, #{laundryuserid,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{reservationtaketime,jdbcType=TIMESTAMP}, #{reservationgivetime,jdbcType=TIMESTAMP}, 
+      #{reservationstatus,jdbcType=VARCHAR}, #{appointmentresults,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{requirement,jdbcType=VARCHAR}, #{workingprocedure,jdbcType=VARCHAR}, #{technologicalprocess,jdbcType=VARCHAR}, 
+      #{clothespic,jdbcType=VARCHAR}, #{paymentstatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryOrder" >
+    insert into laundry_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ordernum != null" >
+        ordernum,
+      </if>
+      <if test="laundryuserid != null" >
+        laundryuserid,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="reservationtaketime != null" >
+        reservationtaketime,
+      </if>
+      <if test="reservationgivetime != null" >
+        reservationgivetime,
+      </if>
+      <if test="reservationstatus != null" >
+        reservationstatus,
+      </if>
+      <if test="appointmentresults != null" >
+        appointmentresults,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="requirement != null" >
+        requirement,
+      </if>
+      <if test="workingprocedure != null" >
+        workingprocedure,
+      </if>
+      <if test="technologicalprocess != null" >
+        technologicalprocess,
+      </if>
+      <if test="clothespic != null" >
+        clothespic,
+      </if>
+      <if test="paymentstatus != null" >
+        paymentstatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="laundryuserid != null" >
+        #{laundryuserid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="reservationtaketime != null" >
+        #{reservationtaketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reservationgivetime != null" >
+        #{reservationgivetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reservationstatus != null" >
+        #{reservationstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentresults != null" >
+        #{appointmentresults,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requirement != null" >
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="workingprocedure != null" >
+        #{workingprocedure,jdbcType=VARCHAR},
+      </if>
+      <if test="technologicalprocess != null" >
+        #{technologicalprocess,jdbcType=VARCHAR},
+      </if>
+      <if test="clothespic != null" >
+        #{clothespic,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentstatus != null" >
+        #{paymentstatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryOrder" >
+    update laundry_order
+    <set >
+      <if test="ordernum != null" >
+        ordernum = #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="laundryuserid != null" >
+        laundryuserid = #{laundryuserid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="reservationtaketime != null" >
+        reservationtaketime = #{reservationtaketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reservationgivetime != null" >
+        reservationgivetime = #{reservationgivetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reservationstatus != null" >
+        reservationstatus = #{reservationstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentresults != null" >
+        appointmentresults = #{appointmentresults,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requirement != null" >
+        requirement = #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="workingprocedure != null" >
+        workingprocedure = #{workingprocedure,jdbcType=VARCHAR},
+      </if>
+      <if test="technologicalprocess != null" >
+        technologicalprocess = #{technologicalprocess,jdbcType=VARCHAR},
+      </if>
+      <if test="clothespic != null" >
+        clothespic = #{clothespic,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentstatus != null" >
+        paymentstatus = #{paymentstatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computer.community_laundry.support.entity.laundry.LaundryOrder" >
+    update laundry_order
+    set ordernum = #{ordernum,jdbcType=VARCHAR},
+      laundryuserid = #{laundryuserid,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      reservationtaketime = #{reservationtaketime,jdbcType=TIMESTAMP},
+      reservationgivetime = #{reservationgivetime,jdbcType=TIMESTAMP},
+      reservationstatus = #{reservationstatus,jdbcType=VARCHAR},
+      appointmentresults = #{appointmentresults,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      requirement = #{requirement,jdbcType=VARCHAR},
+      workingprocedure = #{workingprocedure,jdbcType=VARCHAR},
+      technologicalprocess = #{technologicalprocess,jdbcType=VARCHAR},
+      clothespic = #{clothespic,jdbcType=VARCHAR},
+      paymentstatus = #{paymentstatus,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,32 @@
+/*设置背景色为农行通用*/
+/*深绿色背景*/
+.head_color {
+	background: #2b5b6a;
+}
+
+#logoImg {
+	width: 38px;
+	float: left;
+	margin-top: 8px;
+	margin-left: 4px;
+	margin-right: 3px;
+}
+
+.color_fade {
+	color: #989898;
+}
+
+.cl-nav {}
+
+/*单选框背景*/
+.layui-form-checked[lay-skin=primary] i {
+	border-color: #4796d1;
+	background-color: #4796d1;
+	color: #fff;
+}
+
+body .layui-form-select dl dd.layui-this {
+	color: #45bcbb;
+}
+
+/**/

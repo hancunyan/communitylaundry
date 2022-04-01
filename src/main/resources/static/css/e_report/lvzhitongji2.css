@@ -1,0 +1,103 @@
+.card_lvzhitong_type1{
+	height: 100px;
+}
+.card_lvzhitong_type2{
+	position: absolute;
+	top: 100px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+.card_lvzhitong_type2 .card{
+	height: 50%;
+}
+
+.card_lvzhitong_type1 .card{
+	height: 100%;
+}
+#charts5{
+	top:50px;
+}
+
+#item5_tip_item1 .tip_type1_logo{
+	background: rgb(45,200,57);
+}
+#item5_tip_item2 .tip_type1_logo{
+	background: rgb(20,139,246);
+}
+#item5_tip_item3 .tip_type1_logo{
+	background: rgb(123,0,250);
+}
+#item5_tip_item4 .tip_type1_logo{
+	background: #FAD337;
+}
+
+#item7_tip_item1  .tip_type2_logo{
+	background: #8291EA;
+}
+#item7_tip_item2 .tip_type2_logo{
+	background: #27DCED;
+}
+#item7_tip_item3 .tip_type2_logo{
+	background: #0082D4;
+}
+#item7_tip_item4 .tip_type2_logo{
+	background: #68DF9D;
+}
+
+#item6 img{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+#item6_table table{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#item6_table {
+	position: absolute;
+    top: 43px;
+    left: 6px;
+    bottom: 16px;
+    right: 6px;
+    overflow: hidden;
+}
+#item6_table table{
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+}
+#item6_table table tr td{
+	padding: 2px 0px;
+}
+#item6_table .marque_img{
+	padding-top: 15px;
+}
+
+.rank{
+	display: block;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	position:relative;
+	top :37px;
+	left:8px;
+	box-shadow: rgba(31, 132, 118, 0.20) 0px 0px 10px 0px;
+	line-height: 18px;
+	z-index: 9999;
+	background: #FFFFFF;
+}
+.rank_1{
+	color: rgb(254,8,8);
+}
+.rank_2{
+	color: rgb(245,168,47);
+}
+.rank_3,.rank_4{
+	color: rgb(42,199,55);
+}
+
+.icon-jiantou{
+	font-size: 18px;
+	display: inline-block;
+}

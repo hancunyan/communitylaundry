@@ -1,0 +1,178 @@
+.layui-page-wrap {
+	background-color: #E7EDF7;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.templateName {
+	font-size: .24rem;
+	color: #2b5b6a;
+	margin-bottom: .12rem;
+	font-weight: 600;
+}
+
+.flex_between {
+	display: flex;
+	justify-content: space-between;
+	line-height: 42px;
+	margin-bottom: 12px;
+}
+
+.c-basketry {
+	position: absolute;
+	top: 15px;
+	bottom: 15px;
+	left: 15px;
+	right: 15px;
+}
+
+.floor1 {
+	margin-right: -15px;
+	height: 2.00rem;
+	display: flex;
+	overflow: hidden;
+}
+
+.floor2 {
+	height: 4.6rem;
+	margin-top: .24rem;
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 0 4px 40px 0 rgba(47, 65, 110, 0.08);
+	border-radius: 4px;
+	position: relative;
+}
+
+.floor3 {
+	height: 4.25rem;
+	margin-top: .24rem;
+	margin-bottom: .24rem;
+	display: flex;
+	position: relative;
+}
+
+[class^=floor] .picItWrap {
+	width: 25%;
+	height: 100%;
+	position: relative;
+}
+[class^=floor].have3 .picItWrap {
+	width: 33%;
+}
+[class^=floor] .picItWrap .picItem {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 15px;
+	bottom: 0;
+	border-radius: 4px;
+	display: flex;
+}
+
+[class^=floor] .picItWrap:nth-child(1) .picItem {
+	background: linear-gradient(80deg, rgb(87, 143, 209), rgb(92, 145, 215));
+}
+
+[class^=floor] .picItWrap:nth-child(4) .picItem {
+	background: linear-gradient(-63deg, rgb(244, 198, 121), rgb(207, 154, 72));
+}
+
+[class^=floor] .picItWrap:nth-child(3) .picItem {
+	background: linear-gradient(80deg, #5e54b6, #796fd6);
+}
+
+[class^=floor] .picItWrap:nth-child(2) .picItem {
+	background: linear-gradient(-63deg, #67ce84, #55b06e);
+}
+
+[class^=floor] .picItWrap .picItem img {
+	position: absolute;
+	width: .82rem;
+	height: .82rem;
+	left: .63rem;
+	top: 50%;
+	margin-top: -.36rem;
+}
+
+[class^=floor] .picItWrap .picItem .textIt {
+	position: absolute;
+	height: .70rem;
+	top: 50%;
+	margin-top: -.45rem;
+	left: 1.63rem;
+}
+
+.fText {
+	font-size: .37rem;
+	font-weight: 400;
+	color: rgba(255, 255, 255, 1);
+}
+
+.fText .unit {
+	font-size: .24rem;
+}
+
+.sText {
+	font-size: .20rem;
+	font-weight: 400;
+	color: rgba(255, 255, 255, 0.9);
+	line-height: .48rem;
+}
+
+.eWrp1 {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 2.62rem;
+	bottom: .12rem;
+}
+
+.eWrp1 .theLeft {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 5.2rem;
+	bottom: 0;
+}
+
+.eWrp1 .theRight {
+	position: absolute;
+	left: 5.32rem;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.eWrp1 .theLeft2 {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 5.32rem;
+}
+
+.eWrp1 .theRight2 {
+	position: absolute;
+	width: 5.2rem;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.searchCon {
+	display: flex;
+	height: 48px;
+	justify-content: space-between;
+}
+
+.contentWrp {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 54px;
+	bottom: 0;
+}

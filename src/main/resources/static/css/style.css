@@ -1,0 +1,135 @@
+/*添加样式*/
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: "Helvetica Neue", "Microsoft YaHei Light", "微软雅黑 Light"
+		font-weight: 400;
+}
+
+::-webkit-input-placeholder {
+	color: #909399 !important;
+}
+
+:-ms-input-placeholder {
+	color: #909399 !important;
+}
+
+input::-webkit-input-placeholder {
+	color: #888;
+}
+
+input:-moz-placeholder {
+	color: #888;
+}
+
+input:-ms-input-placeholder {
+	color: #888;
+}
+
+button,
+input,
+optgroup,
+option,
+select,
+textarea {
+	font-size: unset;
+}
+
+.tableOptionWrap a {
+	cursor: pointer;
+}
+
+.tableOptionWrap .icon-bianji {
+    color: #4796d1;
+}
+
+.tableOptionWrap .icon-shanchu {
+	color: #ff5722;
+}
+
+.tableOptionWrap .icon-yanjing1 {
+	font-size: 16px !important;
+	color: #4796d1;
+}
+
+.normal_shadow {
+	box-shadow: 0 0 10px 0 rgba(31, 132, 118, 0.20);
+}
+
+/*分页样式*/
+#pageBody .iconfont {
+	font-size: 12px;
+}
+
+#pageBody {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #f2fafc;
+	overflow: auto;
+}
+
+.bodyWraper {
+	position: absolute;
+	top: 0;
+	left: 6px;
+	bottom: 0;
+	right: 6px;
+	overflow: auto;
+}
+
+.pageName {
+	height: 24px;
+	font-size: 12px;
+	line-height: 24px;
+	color: #606266;
+	padding-left: 12px;
+}
+
+.pageName .current {
+	color: #303133;
+}
+
+/*必选*/
+.necessa_mark {
+	color: red
+}
+
+/*关联设备设备*/
+.deviceItem {
+	margin-bottom: 10px;
+	position: relative;
+	padding-right: 68px;
+}
+
+.deviceItem .deviceRemoveButton {
+	position: absolute;
+	top: 42px;
+	right: 10px;
+	width: 28px;
+	height: 28px;
+	cursor: pointer;
+}
+
+#pageBody .deviceItem .deviceRemoveButton .icon-jianshao {
+	font-size: 24px;
+	font-weight: 600;
+	color: #009688;
+}
+
+/*弹出窗表单样式*/
+#layerForm {
+	padding: 12px;
+}
+
+#layerForm .messageTitle {
+	line-height: 30px;
+	text-align: right;
+}
+
+#layerForm .item {
+	margin-bottom: 16px;
+}
